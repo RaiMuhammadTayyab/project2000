@@ -1,0 +1,5 @@
+.container{
+    display: flex;
+    justify-items: center;
+    width: 50%;
+flex-direction: column;}
