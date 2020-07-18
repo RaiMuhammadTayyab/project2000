@@ -23,9 +23,9 @@ const CountryPicker=(props)=>{
     function countryhandler(event){ props.onChange(event.target.value)}
 
 return(
-    <FormControl className={styles.formcontainer}>
+    <FormControl>
         <NativeSelect Value={props.Value} onChange={countryhandler}>
-    <option Value="global"> Global</option>
+    <option Value="global">Global</option>
      {fechcountry.map((country,i)=><option key={i} Value={country}>
        {country}</option>)}
          </NativeSelect>

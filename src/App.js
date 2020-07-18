@@ -3,82 +3,64 @@ import styles from  './App.module.css';
 import Cards from './Components/Cards/Cards'
 import Charts from'./Components/Charts/Charts'
 import CountryPicker from'./Components/Countrypicker/Countrypicker'
-/*const Countrydata={
-  Confirmed:0,
-  Deaths:0,
-  Recovered:0,
-  latestdate:0}*/
-
+import Appbar from './Components/Appbar'
+import { act } from 'react-dom/test-utils';
 
 const App=()=> {
-const [result,setresult]=useState({})
-const[pkr,setpkr]=useState({})
-const[count,setcount]=useState("")
-//const[Country,setCountry]=useState([])
+  const[countryname,setCountryname]=useState("")
+const [global,setGlobal]=useState({})
+const[data,setData]=useState({})
+//const[country,setCountry]=useState(["Confirmed:","Deaths:","Recovered:","latestDate:"])
 
   useEffect(()=>{
-    async function fetchdata(){
-      const response= await fetch ("https://api.covid19api.com/summary")
-        
-      const data= await response.json()
+    fetchdata()},[])
+    const fetchdata=async()=>{
+      const response= await fetch("https://api.covid19api.com/summary")
+         .then(res=> res.json())
       
-      console.log(count)
-    const Con1=data.Countries.findIndex(
-        function(post,Index){
-          if(post.Country=='Pakistan')
-
-          return true;
-        
-        })
-        console.log(Con1)
-     /* const refineddata={
-        Deaths: data.Countries.map(({TotalDeaths})=>TotalDeaths),
-        Confirmed:data.Countries.map(({TotalConfirmed})=>TotalConfirmed),
-        Recovered:data.Countries.map(({TotalRecovered})=>TotalRecovered),
-        latestdate:data.Date }
-    setCountry(refineddata)*/
-  
-     const modified={
-          Confirmed:data.Global.TotalConfirmed,
-             Deaths: data.Global.TotalDeaths,
-             Recovered:data.Global.TotalRecovered,
-             latestdate:data.Date}  
-    const Countrydata={
-      Confirmed:data.Countries[Con1].TotalConfirmed,
-      Deaths:data.Countries[Con1].TotalDeaths,
-      Recovered:data.Countries[Con1].TotalRecovered,
-       latestdate:data.Countries[Con1].Date,
-      }
+         if (response)
      
-      setresult (modified)
-      setpkr(Countrydata)   
-    }
-  
-  fetchdata()
-  },[])
-      // console.log(count) 
- //const con=()=>{
-  // for (var i=0;i<Country.length;i++)
-   //if (Country[i].count){
-console.log(pkr)
+      {  setData(response);
+        
+      /* setCountry({
+          Confirmed:response.Global.TotalConfirmed,
+          Deaths: response.Global.TotalDeaths,
+          Recovered:response.Global.TotalRecovered,
+          latestdate:response.Date});*/
+          setGlobal({
+            Confirmed:response.Global.TotalConfirmed,
+            Deaths: response.Global.TotalDeaths,
+            Recovered:response.Global.TotalRecovered,
+            latestdate:response.Date})
+          }
+        }
 
- function countryhandler(newvalue){
-   setcount(newvalue)}
-   
+      
+      const countryhandler=(name)=>{
+        setCountryname(name)
+        const country=data.Countries.filter((data)=>(data.Country===name))[0];
+      country && setGlobal({
+
+        Confirmed:country.TotalConfirmed,
+        Deaths:country.TotalDeaths,
+        Recovered:country.TotalRecovered,
+         latestdate:country.Date })
+        }
+        
 return (
-    <div className={styles.container} >
-    <h2 >GLobal</h2>
-    <Cards data={result}/>
-    
-    <h2 >Countries</h2>
-    
-   <Cards data={pkr}/>
-    <CountryPicker value={count} onChange={countryhandler}/>
-   <Charts/>
+ <div className={styles.app}> <Appbar/>
+
+<div className={styles.container}>
+
+    <h2 text-transform="uppercase"> {countryname ? 'Country:'+countryname:'Global'}</h2>
+    <Cards data={global}/>
+    <br/>
+    <CountryPicker onChange={countryhandler}/>
+   <Charts  Data={global} Country={countryname}/>
   
-   </div>
+   </div></div>
+   
   );
 }
-
 
 export default App;

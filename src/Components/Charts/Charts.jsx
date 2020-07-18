@@ -1,9 +1,9 @@
 import React, {useEffect,useState} from 'react'
-import {Line} from 'react-chartjs-2'
+import {Line,Pie,Bar} from 'react-chartjs-2'
 import styles from './Charts.module.css'
 
 
-const Charts=()=>{
+const Charts=({Data:{Confirmed,Recovered,Deaths}, Country})=>{
 
 const [daily, setdaily] =useState([])
 
@@ -41,13 +41,49 @@ const lineChart=(
           backgroundColor: 'rgba(255,0,0,0.5)',
           fill: true
           }]
-}}/>
-  ):null )
+}}/>):null )
+ 
+const pieChart=(
+Country
+? (
+<Pie
+data={{
+  labels: ['Infected', 'Recovered','Deaths'],
+datasets:[{
+  data: [Confirmed,Recovered,Deaths],
+labels: 'People',
+backgroundColor:[' #3333ff','rgba(0,255,0,0.5)','rgba(255,0,0,0.5)'],
+}]}}
+options= {{
+  legend:{display:true},
+  title: {display:true, text:"Current state:- " + Country},
+  
+}}/>):null)
+const barChart=(
+  Country
+?(<Bar
+  data={{
+    labels: ['Infected', 'Recovered','Deaths'],
+  datasets:[{
+    data: [Confirmed,Recovered,Deaths],
+  labels: 'People',
+  backgroundColor:[' #3333ff','rgba(0,255,0,0.5)','rgba(255,0,0,0.5)']
+  }]}}
+  options= {{
+    legend:{display:false},
+    title: {display:true, text:"Current state:- " + Country}
 
-return (
-    <div className={styles.container}>
-    {lineChart}
-    </div>
+    
+  }}/>
+ ) : null)
+  
+
+return(
+ <div className={styles.container} >
+   {Country ? pieChart && barChart: lineChart}</div>
+     
+     
+    
 )
 }
 
