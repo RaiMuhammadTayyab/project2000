@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react'
 import {NativeSelect,FormControl} from '@material-ui/core'
-import styles from './Countrypicke.module.css'
 
 const CountryPicker=(props)=>{
     const[fechcountry, setcountry]=useState([])
