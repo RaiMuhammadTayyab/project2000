@@ -28,7 +28,7 @@ jobs:
 
     # Runs a set of commands using the runners shell
     - name: Yarn action
-      uses: Borales/actions-yarn@v2.0.0
+      uses: borales/actions-yarn@v2.0.0
       with:
         cmd: install
     - name:  build yarn
@@ -36,4 +36,4 @@ jobs:
     - name: initiating surg
       run: npm install --g surge
     - name: deploying surg
-      run: surge ./ build http://clear-cry.surge.sh/--token ${{secrets.Virus}}
+      run: surge ./ build http://clear-cry.surge.sh/--token${{secrets.Virus}}
