@@ -36,4 +36,4 @@ jobs:
     - name: initiating surg
       run: npm install --g surge
     - name: deploying surg
-      run: surge ./ build tayyab-covid.surge.sh --token{{secrets.Virus}}
+      run: surge ./ build http://clear-cry.surge.sh/--token{{secrets.Virus}}
