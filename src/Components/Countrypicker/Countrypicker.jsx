@@ -3,7 +3,7 @@ import {NativeSelect,FormControl} from '@material-ui/core'
 
 const CountryPicker=(props)=>{
     const[fechcountry, setcountry]=useState([])
-    const[global,setGlobal]=useState({})
+    
    
     useEffect(()=>{
        
