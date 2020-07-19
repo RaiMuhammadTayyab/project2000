@@ -4,7 +4,6 @@ import Cards from './Components/Cards/Cards'
 import Charts from'./Components/Charts/Charts'
 import CountryPicker from'./Components/Countrypicker/Countrypicker'
 import Appbar from './Components/Appbar'
-import { act } from 'react-dom/test-utils';
 
 const App=()=> {
   const[countryname,setCountryname]=useState("")
