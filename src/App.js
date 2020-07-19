@@ -5,7 +5,6 @@ import Charts from'./Components/Charts/Charts'
 import CountryPicker from'./Components/Countrypicker/Countrypicker'
 import Appbar from './Components/Appbar'
 
-
 const App=()=> {
   const[countryname,setCountryname]=useState("")
 const [global,setGlobal]=useState({})
